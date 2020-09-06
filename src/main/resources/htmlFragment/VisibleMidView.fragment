@@ -1,0 +1,29 @@
+<el-input v-model="${miIds}"> </el-input>
+<p></p>
+<el-row :gutter="20">
+    <el-col :span="1.5">
+        <div class="grid-content bg-purple">
+            <el-dropdown  @command="${handleCommandMethod}" split-button type="primary">
+                快速选择
+                <el-dropdown-menu slot="dropdown" >
+                  <el-dropdown-item v-for="ep in ${eps}" v-bind:command="ep.id">{{ ep.name + "-" + ep.id }}</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+    </el-col>
+    <el-col :span="1.5">
+        <div class="grid-content bg-purple" >
+            <el-button type="primary" @click="${addAllMiIdsMethod}">添加整个成长体系</el-button>
+        </div>
+    </el-col>
+    <el-col :span="1.5">
+        <div class="grid-content bg-purple" >
+            <el-button type="danger" @click="${miIds}=''">上线</el-button>
+        </div>
+    </el-col>
+    <el-col :span="1.5">
+        <div class="grid-content bg-purple" >
+            <el-button type="warning" type="warning" @click="${miIds}='233|'">所有人不可见</el-button>
+        </div>
+    </el-col>
+</el-row>

@@ -1,0 +1,10 @@
+${addAllMiIdsMethod}(){
+    var tmp = '';
+    for(let id in this.${eps}){
+        tmp = tmp + this.${eps}[id].id + '|'
+    }
+    this.${miIds} = tmp;
+},
+${handleCommandMethod}(command) {
+    this.${miIds} = this.${miIds} + command + '|';
+}
