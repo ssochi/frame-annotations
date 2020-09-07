@@ -1,5 +1,7 @@
 package org.ssochi.fa.views;
 
+import java.util.Map;
+
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.ssochi.fa.annotations.PreCondition;
@@ -72,7 +74,18 @@ public abstract class FormItemView extends FAView {
     /**
      * 对于主属性使用这个方法生产名字
      */
-    protected String formName(String name){
-        return FORM_SUFFIX + name;
+    protected String majorVarRef(){
+        return FORM_SUFFIX + getFieldName();
+    }
+
+    /**
+     * @return 主属性名称
+     */
+    protected String majorVarName(){
+        return getFieldName();
+    }
+
+    protected void putLocal(Map<String,String> context,String key){
+        context.put(key,localName(key));
     }
 }

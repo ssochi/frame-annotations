@@ -18,197 +18,22 @@
      <el-input v-model="form.description" :disabled="false" type="textarea"></el-input>
     </el-form-item>
     <el-form-item label="挂件图片" v-if="true">
-     <el-upload class="upload-demo" action="" :on-preview="handle_image_preview" :on-remove="handle_image_remove" :file-list="form.image.group" list-type="picture">
-      <el-button size="small" type="primary" v-if="form.image.group.length <= 0">
-       点击上传
-      </el-button>
-      <div slot="tip" class="el-upload__tip">
-       只能上传jpg/png文件
-      </div>
-     </el-upload>
-     <el-dialog :visible.sync="imagedialogVisible">
-      <img width="100%" :src="imagedialogImageUrl">
-     </el-dialog>
-    </el-form-item>
-    <el-form-item label="是否设置有效时间" v-if="true">
-     <el-switch v-model="form.useTimeSelector" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
-    </el-form-item>
-    <el-form-item label="起始时间" v-if="form.description == '233'">
-     <el-date-picker v-model="form.startTime" type="datetime" placeholder="选择日期时间" value-format="timestamp"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="结束时间" v-if="form.useTimeSelector == true">
-     <el-date-picker v-model="form.endTime" type="datetime" placeholder="选择日期时间" value-format="timestamp"></el-date-picker>
-    </el-form-item>
-    <el-form-item label="允许访问的mids" v-if="true">
      <body>
-      <el-input v-model="form.miIds"> 
-      </el-input>
-      <p></p>
-      <el-row :gutter="20"> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-dropdown @command="miIds_handleCommandMethod" split-button type="primary">
-           快速选择 
-          <el-dropdown-menu slot="dropdown"> 
-           <el-dropdown-item v-for="ep in miIds_eps" v-bind:command="ep.id">
-            {{ ep.name + "-" + ep.id }}
-           </el-dropdown-item> 
-          </el-dropdown-menu> 
-         </el-dropdown> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="primary" @click="miIds_addAllMiIdsMethod">
-          添加整个成长体系
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="danger" @click="form.miIds=''">
-          上线
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="warning" @click="form.miIds='233|'">
-          所有人不可见
-         </el-button> 
-        </div> 
-       </el-col>
-      </el-row>
-     </body>
-    </el-form-item>
-    <el-form-item label="允许访问的mids" v-if="true">
-     <body>
-      <el-input v-model="form.miIds1"> 
-      </el-input>
-      <p></p>
-      <el-row :gutter="20"> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-dropdown @command="miIds1_handleCommandMethod" split-button type="primary">
-           快速选择 
-          <el-dropdown-menu slot="dropdown"> 
-           <el-dropdown-item v-for="ep in miIds1_eps" v-bind:command="ep.id">
-            {{ ep.name + "-" + ep.id }}
-           </el-dropdown-item> 
-          </el-dropdown-menu> 
-         </el-dropdown> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="primary" @click="miIds1_addAllMiIdsMethod">
-          添加整个成长体系
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="danger" @click="form.miIds1=''">
-          上线
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="warning" @click="form.miIds1='233|'">
-          所有人不可见
-         </el-button> 
-        </div> 
-       </el-col>
-      </el-row>
-     </body>
-    </el-form-item>
-    <el-form-item label="允许访问的mids" v-if="true">
-     <body>
-      <el-input v-model="form.miIds2"> 
-      </el-input>
-      <p></p>
-      <el-row :gutter="20"> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-dropdown @command="miIds2_handleCommandMethod" split-button type="primary">
-           快速选择 
-          <el-dropdown-menu slot="dropdown"> 
-           <el-dropdown-item v-for="ep in miIds2_eps" v-bind:command="ep.id">
-            {{ ep.name + "-" + ep.id }}
-           </el-dropdown-item> 
-          </el-dropdown-menu> 
-         </el-dropdown> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="primary" @click="miIds2_addAllMiIdsMethod">
-          添加整个成长体系
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="danger" @click="form.miIds2=''">
-          上线
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="warning" @click="form.miIds2='233|'">
-          所有人不可见
-         </el-button> 
-        </div> 
-       </el-col>
-      </el-row>
-     </body>
-    </el-form-item>
-    <el-form-item label="允许访问的mids" v-if="true">
-     <body>
-      <el-input v-model="form.miIds3"> 
-      </el-input>
-      <p></p>
-      <el-row :gutter="20"> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-dropdown @command="miIds3_handleCommandMethod" split-button type="primary">
-           快速选择 
-          <el-dropdown-menu slot="dropdown"> 
-           <el-dropdown-item v-for="ep in miIds3_eps" v-bind:command="ep.id">
-            {{ ep.name + "-" + ep.id }}
-           </el-dropdown-item> 
-          </el-dropdown-menu> 
-         </el-dropdown> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="primary" @click="miIds3_addAllMiIdsMethod">
-          添加整个成长体系
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="danger" @click="form.miIds3=''">
-          上线
-         </el-button> 
-        </div> 
-       </el-col> 
-       <el-col :span="1.5"> 
-        <div class="grid-content bg-purple"> 
-         <el-button type="warning" @click="form.miIds3='233|'">
-          所有人不可见
-         </el-button> 
-        </div> 
-       </el-col>
-      </el-row>
+      <el-upload class="upload-demo" action="" :on-preview="image_handle_preview" :on-remove="image_handle_remove" :file-list="form.image.group" list-type="picture"> 
+       <el-button size="small" type="primary" v-if="form.image.group.length <= 0">
+         点击上传 
+       </el-button> 
+       <div slot="tip" class="el-upload__tip">
+         只能上传jpg/png文件 
+       </div> 
+      </el-upload> 
+      <el-dialog :visible.sync="image_dialog_visible"> 
+       <img width="100%" :src="image_dialog_image">
+      </el-dialog>
      </body>
     </el-form-item>
    </el-form>
   </div>
-  <script>var Main={data(){return{"form":{"id":"0","name":"","description":"","image":{"group":[]},"useTimeSelector":false,"startTime":"","endTime":"","miIds":"","miIds1":"","miIds2":"","miIds3":""},"imagedialogVisible":false,"imagedialogImageUrl":"","miIds_eps":[{"name":"wanqilin","id":"1310673343"},{"name":"leijun","id":"233333"}],"miIds1_eps":[{"name":"wanqilin","id":"1310673343"},{"name":"leijun","id":"233333"}],"miIds2_eps":[{"name":"wanqilin","id":"1310673343"},{"name":"leijun","id":"233333"}],"miIds3_eps":[{"name":"wanqilin","id":"1310673343"},{"name":"leijun","id":"233333"}],"labelPosition":"top"}},methods:{handle_image_preview(file){this.imagedialogVisible=true;this.imagedialogImageUrl=file.url;},handle_image_remove(file,fileList){this.form.image.group = [];},miIds_addAllMiIdsMethod(){ var tmp = ''; for(let id in this.miIds_eps){ tmp = tmp + this.miIds_eps[id].id + '|' } this.form.miIds = tmp;},miIds_handleCommandMethod(command) { this.form.miIds = this.form.miIds + command + '|';},miIds1_addAllMiIdsMethod(){ var tmp = ''; for(let id in this.miIds1_eps){ tmp = tmp + this.miIds1_eps[id].id + '|' } this.form.miIds1 = tmp;},miIds1_handleCommandMethod(command) { this.form.miIds1 = this.form.miIds1 + command + '|';},miIds2_addAllMiIdsMethod(){ var tmp = ''; for(let id in this.miIds2_eps){ tmp = tmp + this.miIds2_eps[id].id + '|' } this.form.miIds2 = tmp;},miIds2_handleCommandMethod(command) { this.form.miIds2 = this.form.miIds2 + command + '|';},miIds3_addAllMiIdsMethod(){ var tmp = ''; for(let id in this.miIds3_eps){ tmp = tmp + this.miIds3_eps[id].id + '|' } this.form.miIds3 = tmp;},miIds3_handleCommandMethod(command) { this.form.miIds3 = this.form.miIds3 + command + '|';},}};var Ctor = Vue.extend(Main);new Ctor().$mount('#app');</script>
+  <script>var Main={data(){return{"form":{"id":"1","name":"","description":"","image":{"group":[]}},"image_dialog_visible":false,"image_dialog_image":"","labelPosition":"top"}},methods:{image_handle_preview(file) { this.image_dialog_visible = true; this.image_dialog_image = file.url;},image_handle_remove(file, fileList) { this.form.image.group = [];},}};var Ctor = Vue.extend(Main);new Ctor().$mount('#app');</script>
  </body>
 </html>
