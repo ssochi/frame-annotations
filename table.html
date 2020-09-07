@@ -1,0 +1,735 @@
+<html>
+    <head>
+        <title>现金订单查询</title>
+    </head>
+    <body>
+        <link rel="stylesheet" type="text/css" href="https://unpkg.com/element-ui@2.13.2/lib/theme-chalk/index.css" />
+        <script src="https://unpkg.com/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/element-ui@2.13.2/lib/index.js"></script>
+        <!-- 引入 Bootstrap -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <div class="col-sm-10 col-sm-offset-2 col-md-11 col-md-offset-1 main" style="overflow:auto;">
+            <div id="app">
+                <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleMenuSelect">
+                    <el-menu-item index="1">现金订单表查询</el-menu-item>
+                  </el-menu>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <el-radio-group v-model="form.selectd" size="small">
+                            <el-radio-button v-for="model in radio_button_model" :label="model.type">{{ model.text }}</el-radio-button>
+                        </el-radio-group>
+                        <p></p>
+                        <el-row>
+                            <el-col :span="0.01"><el-tag type="info">用户ID或订单号:</el-tag></el-col>
+                            <el-col :span="0.01">
+                                <el-input placeholder="请输入内容" v-model="form.search" size="small">
+                                    <el-button slot="append" icon="el-icon-search"></el-button>
+                                </el-input>
+                            </el-col>
+                            <el-col :span="1"><p></p></el-col>
+                            <el-col :span="0.01"><el-tag type="info">过滤当前内容</el-tag></el-col>
+                            <el-col :span="0.01"><el-input placeholder="请输入内容" v-model="form.search" size="small">
+                                <el-button slot="append" icon="el-icon-search"></el-button>
+                            </el-input></el-col>
+                        </el-row>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <el-table
+                            :data="tableData"
+                            stripe
+                            height="750"
+                            style="width: 100%">
+                            <el-table-column
+                            fixed
+                            prop="id"
+                            label="ID"
+                            width="150"
+                            sortable>
+                            </el-table-column>
+                            <el-table-column 
+                            v-for="model in tableStruct"
+                            :prop="model.prop"
+                            :label="model.label"
+                            :width="model.width > 0 ? model.width : 9999" sortable>
+                            </el-table-column>
+                            <el-table-column
+                            fixed="right"
+                            label="操作"
+                            width="100">
+                            <template slot-scope="scope">
+                                <el-button @click="handleCheckClick(scope.row)" type="text" size="small">查单</el-button>
+                                <el-button @click="handleDeleteClick(scope.row)" type="text" size="small">退款</el-button>
+                            </template>
+                            </el-table-column>
+                        </el-table>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <el-pagination
+                        background
+                        align="right"
+                        layout="prev, pager, next"
+                        :total="1000">
+                    </el-pagination>  
+                    </div>
+                </div>
+                     
+            </div>
+        </div>
+        
+    </body>
+  <script>
+
+    var Main = {
+        data(){
+            return {
+                form:{
+                    selectd:"180",
+                    search:""
+                },
+                tableData:[
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                    {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+                {
+                    "id":"591497",
+                    "orderId":"14055460494388857826",
+                    "userId":"1405546049",
+                    "taskId":"10100543",
+                    "status":"等待支付",
+                    "moneyId":"0",
+                    "moneyCount":"0",
+                    "cashCount":"9900",
+                    "orderCreateTime":"2020-09-07 21:35:55",
+                    "payTime":"-",
+                    "awardTime":"-",
+                    "orderFailedTime":"-",
+                    "orderFailedReason":"-",
+                    "isRefund":"false",
+                    "refundTime":"-",
+                    "isRefundCash":"false",
+                    "refundCashTime":"-",
+                    
+                },
+
+                ],
+                tableStruct:[
+                    {
+                        prop:"orderId",
+                        label:"订单号",
+                        width:"220"
+                    },
+                    {
+                        prop:"userId",
+                        label:"用户ID",
+                        width:"180"
+                    },
+                    {
+                        prop:"taskId",
+                        label:"任务ID",
+                        width:"180"
+                    },
+                    {
+                        prop:"status",
+                        label:"状态",
+                        width:"180"
+                    },
+                    {
+                        prop:"moneyId",
+                        label:"货币ID",
+                        width:"180"
+                    },
+                    {
+                        prop:"moneyCount",
+                        label:"货币量",
+                        width:"180"
+                    },
+                    {
+                        prop:"cashCount",
+                        label:"现金总额",
+                        width:"180"
+                    },
+                    {
+                        prop:"orderCreateTime",
+                        label:"订单创建时间",
+                        width:"180"
+                    },
+                    {
+                        prop:"payTime",
+                        label:"现金付款时间",
+                        width:"180"
+                    },
+                    {
+                        prop:"awardTime",
+                        label:"发放奖励时间",
+                        width:"180"
+                    },
+                    {
+                        prop:"orderFailedTime",
+                        label:"订单失败时间",
+                        width:"180"
+                    },
+                    {
+                        prop:"orderFailedReason",
+                        label:"订单失败原因",
+                        width:"180"
+                    },
+                    {
+                        prop:"isRefund",
+                        label:"是否已退货币",
+                        width:"180"
+                    },
+                    {
+                        prop:"refundTime",
+                        label:"货币退还时间",
+                        width:"180"
+                    },
+                    {
+                        prop:"isRefundCash",
+                        label:"是否退还现金",
+                        width:"180"
+                    },
+                    {
+                        prop:"refundCashTime",
+                        label:"现金退还时间",
+                        width:"180"
+                    },
+                ],
+
+                radio_button_model:[
+                    {"type" : "180","text" : "全部"},
+                    {"type" : "0","text" : "未知状态(默认状态)"},
+                    {"type" : "1","text" : "等待支付"},
+                    {"type" : "2","text" : "已支付，待发奖"},
+                    {"type" : "3","text" : "订单完成"},
+                    {"type" : "4","text" : "处理中"},
+                    {"type" : "5","text" : "需要人工处理"},
+                    {"type" : "6","text" : "事务重试ing"},
+                    {"type" : "20","text" : "支付超时"},
+                    {"type" : "21","text" : "订单取消"},
+                    {"type" : "22","text" : "支付失败"},
+                    {"type" : "23","text" : "发奖失败"},
+                    {"type" : "24","text" : "服务器错误"},
+                    {"type" : "50","text" : "（钱包）待支付"},
+                    {"type" : "51","text" : "（钱包）交易关闭"},
+                    {"type" : "52","text" : "（钱包）交易取消"},
+                    {"type" : "70","text" : "已申请退款"},
+                    {"type" : "71","text" : "退款成功"},
+                    {"type" : "72","text" : "退款失败"},
+                    {"type" : "73","text" : "退款申请失败"},
+                    {"type" : "74","text" : "(钱包)正在退款中"},
+                    {"type" : "75","text" : "未知退款状态"},
+                ],
+                meunSelectedCounter:0
+            }
+        },
+        methods: {
+            handleDeleteClick(row){
+                console.log(row);
+                this.$confirm('退款操作可能失败, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                this.$message({
+                    type: 'success',
+                    message: '退款成功!'
+                });
+                }).catch(() => {
+                this.$message({
+                    type: 'info',
+                    message: '已取消退款'
+                });          
+                });
+            },
+            handleMenuSelect(){
+                this.meunSelectedCounter = this.meunSelectedCounter + 1
+                this.$notify({
+                    title: '成功',
+                    message: '你点了我' + toChinesNum(this.meunSelectedCounter) +'下',
+                    type: 'success'
+                });
+            }
+        }
+    }
+    function toChinesNum(num){
+    let changeNum = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九'];
+    let unit = ["", "十", "百", "千", "万"];
+    num = parseInt(num);
+    let getWan = (temp) => {
+    　　let strArr = temp.toString().split("").reverse();
+    　　let newNum = "";
+    　　for (var i = 0; i < strArr.length; i++) {
+      　　newNum = (i == 0 && strArr[i] == 0 ? "" : (i > 0 && strArr[i] == 0 && strArr[i - 1] == 0 ? "" : changeNum[strArr[i]] + (strArr[i] == 0 ? unit[0] : unit[i]))) + newNum;
+    　　}
+     　 return newNum;
+   }
+   let overWan = Math.floor(num / 10000);
+   let noWan = num % 10000;
+   if (noWan.toString().length < 4) {　　　　　　noWan = "0" + noWan;　　　 }
+   return overWan ? getWan(overWan) + "万" + getWan(noWan) : getWan(num);
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#app')
+  </script>
+</html>
