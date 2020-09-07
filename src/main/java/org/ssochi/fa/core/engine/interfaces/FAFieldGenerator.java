@@ -6,5 +6,5 @@ import org.ssochi.fa.core.FAField;
 import java.lang.reflect.Field;
 
 public interface FAFieldGenerator {
-    public FAField generate(ViewModel viewModel, Field field);
+	FAField generate(ViewModel viewModel, Field field);
 }

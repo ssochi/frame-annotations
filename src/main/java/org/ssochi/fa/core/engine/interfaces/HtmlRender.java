@@ -5,5 +5,5 @@ import org.ssochi.fa.core.FAView;
 import java.util.List;
 
 public interface HtmlRender {
-    public String render(List<FAView> view);
+	String render(List<FAView> view);
 }

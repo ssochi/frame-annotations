@@ -13,32 +13,34 @@ import org.ssochi.fa.utils.FAUtil;
 import static org.ssochi.fa.utils.Constants.*;
 
 public class TimeSelectorFAView extends FormItemView {
-    public static final String fragment_file = "TimeSelectorView.fragment";
-    public TimeSelectorFAView(FAField field) {
-        super(field);
-    }
-    @Override
-    protected void drawViewVue(DrawableVue vue) {
-        String val = fieldValue == null ? "" : (String) fieldValue;
-        vue.addForm(majorVarName(),val);
-    }
+	public static final String fragment_file = "TimeSelectorView.fragment";
 
-    @Override
-    protected void drawFormItem(ElementFactory doc, Element formItem) {
-        Map<String,String> context = new HashMap<>();
-        context.put("startTime",majorVarRef());
-        formItem.appendChild(FAUtil.readElement(fragment_file,context,getFieldName()));
-    }
+	public TimeSelectorFAView(FAField field) {
+		super(field);
+	}
 
-    private String getDateName() {
-        return FORM_SUFFIX + getFieldName();
-    }
+	@Override
+	protected void drawViewVue(DrawableVue vue) {
+		String val = fieldValue == null ? "" : (String) fieldValue;
+		vue.addForm(majorVarName(), val);
+	}
 
-    @Override
-    public void check() {
-        if (isValidType(String.class)){
-            return;
-        }
-        throw inValidTypeException();
-    }
+	@Override
+	protected void drawFormItem(ElementFactory doc, Element formItem) {
+		Map<String, String> context = new HashMap<>();
+		context.put("startTime", majorVarRef());
+		formItem.appendChild(FAUtil.readElement(fragment_file, context, getFieldName()));
+	}
+
+	private String getDateName() {
+		return FORM_SUFFIX + getFieldName();
+	}
+
+	@Override
+	public void check() {
+		if (isValidType(String.class)) {
+			return;
+		}
+		throw inValidTypeException();
+	}
 }

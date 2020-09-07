@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class PicUploadModel {
-    String fileName;
-    String url;
+	String fileName;
+	String url;
 }

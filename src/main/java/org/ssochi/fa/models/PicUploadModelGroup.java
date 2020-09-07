@@ -7,5 +7,5 @@ import java.util.List;
 
 @Data
 public class PicUploadModelGroup {
-    List<PicUploadModel> group = new LinkedList<>();
+	List<PicUploadModel> group = new LinkedList<>();
 }

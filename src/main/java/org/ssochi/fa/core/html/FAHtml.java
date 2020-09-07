@@ -7,13 +7,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FAHtml {
-    @Setter
-    String title;
-    @Getter
-    List<HtmlItem> htmlItems = new LinkedList<>();
+	@Setter
+	String title;
+	@Getter
+	List<HtmlItem> htmlItems = new LinkedList<>();
 
-    public void appendHtmlItem(HtmlItem htmlItem){
-        htmlItems.add(htmlItem);
-    }
+	public void appendHtmlItem(HtmlItem htmlItem) {
+		htmlItems.add(htmlItem);
+	}
 
 }

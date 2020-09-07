@@ -12,34 +12,34 @@ import static org.ssochi.fa.utils.Constants.FORM_SUFFIX;
 import static org.ssochi.fa.utils.Constants.V_MODEL;
 
 public class SwitchFAView extends FormItemView {
-    public SwitchFAView(FAField field) {
-        super(field);
-    }
+	public SwitchFAView(FAField field) {
+		super(field);
+	}
 
-    @Override
-    protected void drawViewVue(DrawableVue vue) {
-        Boolean active = fieldValue == null ? false : (Boolean) fieldValue;
-        vue.addForm(getFieldName(),active);
-    }
+	@Override
+	protected void drawViewVue(DrawableVue vue) {
+		Boolean active = fieldValue == null ? false : (Boolean) fieldValue;
+		vue.addForm(getFieldName(), active);
+	}
 
-    String switchActive(){
-        return FORM_SUFFIX + getFieldName();
-    }
+	String switchActive() {
+		return FORM_SUFFIX + getFieldName();
+	}
 
-    @Override
-    protected void drawFormItem(ElementFactory doc, Element formItem) {
-        Element eSwitch = doc.create("el-switch");
-        eSwitch.attr(V_MODEL, switchActive());
-        eSwitch.attr("active-color","#13ce66");
-        eSwitch.attr("inactive-color","#ff4949");
-        formItem.appendChild(eSwitch);
-    }
+	@Override
+	protected void drawFormItem(ElementFactory doc, Element formItem) {
+		Element eSwitch = doc.create("el-switch");
+		eSwitch.attr(V_MODEL, switchActive());
+		eSwitch.attr("active-color", "#13ce66");
+		eSwitch.attr("inactive-color", "#ff4949");
+		formItem.appendChild(eSwitch);
+	}
 
-    @Override
-    public void check() {
-        Class<?> warpClass = TypeUtil.getWarpClass(getFieldType());
-        if (Boolean.class.isAssignableFrom(warpClass))
-            return;
-        throw new FARunningTimeException("SwitchFAView 不支持这种Field类型(%s)",getFieldType().getSimpleName());
-    }
+	@Override
+	public void check() {
+		Class<?> warpClass = TypeUtil.getWarpClass(getFieldType());
+		if (Boolean.class.isAssignableFrom(warpClass))
+			return;
+		throw new FARunningTimeException("SwitchFAView 不支持这种Field类型(%s)", getFieldType().getSimpleName());
+	}
 }

@@ -22,7 +22,7 @@ public class FAUtil {
 	private static final String regex = "\\$\\{%s\\}";
 
 	public static Element readElement(String fileName, Map<String, String> context, String identity) {
-		return readElement(fileName, context, identity,false);
+		return readElement(fileName, context, identity, false);
 	}
 
 	//TODO 后续优化
@@ -40,9 +40,11 @@ public class FAUtil {
 		}
 		return fragmentCache.get(key);
 	}
-    public static VueFunction readVueFunction(String fileName, Map<String, String> context, String identity){
-	    return readVueFunction(fileName, context, identity,false);
-    }
+
+	public static VueFunction readVueFunction(String fileName, Map<String, String> context, String identity) {
+		return readVueFunction(fileName, context, identity, false);
+	}
+
 	public static VueFunction readVueFunction(String fileName, Map<String, String> context, String identity, boolean force) {
 		String key = identity + fileName;
 		if (!jsFragmentCache.containsKey(key) || force) {
