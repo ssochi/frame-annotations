@@ -7,7 +7,6 @@ import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
 import org.ssochi.fa.utils.ElementFactory;
 import org.ssochi.fa.utils.TypeUtil;
-import org.jsoup.nodes.Document;
 
 import java.util.Optional;
 

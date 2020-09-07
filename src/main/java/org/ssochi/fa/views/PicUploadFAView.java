@@ -39,7 +39,7 @@ public class PicUploadFAView extends FormItemView {
 		vue.add(localName(dialog_visible), false);
 		vue.add(localName(dialog_image), EMPTY_STRING);
 
-		vue.addFunction(FAUtil.readVueFunction(js_fragment_file,context(),getFieldName()));
+		vue.addFunction(readFunction(js_fragment_file));
 	}
 
 	@Override
@@ -58,7 +58,7 @@ public class PicUploadFAView extends FormItemView {
 
 	@Override
 	protected void drawFormItem(ElementFactory doc, Element formItem) {
-		formItem.appendChild(FAUtil.readElement(fragment_file, context(), getFieldName()));
+		formItem.appendChild(readElement(fragment_file));
 	}
 
 	@Override

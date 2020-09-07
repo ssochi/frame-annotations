@@ -8,10 +8,12 @@ import org.jsoup.nodes.Element;
 import org.ssochi.fa.annotations.PreCondition;
 import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.FAView;
+import org.ssochi.fa.core.engine.interfaces.VueFunction;
 import org.ssochi.fa.core.html.HtmlItem;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
 import org.ssochi.fa.utils.ElementFactory;
+import org.ssochi.fa.utils.FAUtil;
 import org.ssochi.fa.utils.TypeUtil;
 
 import static org.ssochi.fa.utils.Constants.*;
@@ -93,14 +95,21 @@ public abstract class FormItemView extends FAView {
 		context.put(key, localName(key));
 	}
 
-	protected Map<String,String> context(){
-		Map<String,String> context = new HashMap<>();
+	protected Map<String, String> context() {
+		Map<String, String> context = new HashMap<>();
 		onBuildContext(context);
 		return context;
 	}
 
-	protected void onBuildContext(Map<String, String> context){
+	protected void onBuildContext(Map<String, String> context) {
+	}
 
+	protected Element readElement(String file) {
+		return FAUtil.readElement(getView().annotationType(), file, context(), getFieldName());
+	}
+
+	protected VueFunction readFunction(String file) {
+		return FAUtil.readVueFunction(getView().annotationType(), file, context(), getFieldName());
 	}
 }
 

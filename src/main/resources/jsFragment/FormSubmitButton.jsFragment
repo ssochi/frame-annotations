@@ -1,8 +1,0 @@
-onSubmit() {
-    console.log('submit!');
-    console.log(this.form);
-},
-onCancel(){
-   console.log('cancel!');
-   console.log(this);
-}

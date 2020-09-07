@@ -33,7 +33,7 @@ public class TimeSelectorFAView extends FormItemView {
 
 	@Override
 	protected void drawFormItem(ElementFactory doc, Element formItem) {
-		formItem.appendChild(FAUtil.readElement(fragment_file, context(), getFieldName()));
+		formItem.appendChild(readElement(fragment_file));
 	}
 
 	@Override

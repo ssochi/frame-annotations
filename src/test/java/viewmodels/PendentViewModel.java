@@ -44,13 +44,4 @@ public class PendentViewModel {
     @ViewProperties(title = "允许访问的mids", prev = "endTime")
     @VisibleMidView
     private String miIds;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds")
-//    @VisibleMidView
-//    private String miIds1;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds1")
-//    @VisibleMidView
-//    private String miIds2;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds2")
-//    @VisibleMidView
-//    private String miIds3;
 }

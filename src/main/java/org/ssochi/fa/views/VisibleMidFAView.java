@@ -31,7 +31,7 @@ public class VisibleMidFAView extends FormItemView {
 	protected void drawViewVue(DrawableVue vue) {
 		vue.addForm(getFieldName(), TypeUtil.getOrDefault(String.class, fieldValue, ""));
 		vue.add(localName(FIELD_EPS), getEps());
-		vue.addFunction(FAUtil.readVueFunction(FILE_JS_FRAGMENT, context(), getFieldName(), false));
+		vue.addFunction(readFunction(FILE_JS_FRAGMENT));
 	}
 
 
@@ -58,7 +58,7 @@ public class VisibleMidFAView extends FormItemView {
 
 	@Override
 	protected void drawFormItem(ElementFactory creator, Element formItem) {
-		formItem.appendChild(FAUtil.readElement(FILE_FRAGMENT, context(), getFieldName()));
+		formItem.appendChild(readElement(FILE_FRAGMENT));
 	}
 
 	@Override

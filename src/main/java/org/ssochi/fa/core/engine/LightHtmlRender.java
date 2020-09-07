@@ -118,7 +118,8 @@ public class LightHtmlRender implements HtmlRender {
 		h2.text(viewModel.title());
 		div.appendChild(h2);
 
-		Element hr = FAUtil.readElement("hr.fragment", null, "");
+		Element hr = doc.createElement("HR");
+		hr.attr("style","color:#606266;");
 		div.appendChild(hr);
 
 		Element form = drawForm(html, doc);
