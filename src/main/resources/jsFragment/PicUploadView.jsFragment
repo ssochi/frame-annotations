@@ -1,6 +1,6 @@
 ${handle_preview}(file) {
-			this.${dialog_visible} = true;
-			this.${dialog_image} = file.url;
+    this.${dialog_visible} = true;
+    this.${dialog_image} = file.url;
 },${handle_remove}(file, fileList) {
     this.${file_list}.group = [];
 }

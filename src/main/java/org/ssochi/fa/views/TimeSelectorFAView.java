@@ -26,14 +26,14 @@ public class TimeSelectorFAView extends FormItemView {
 	}
 
 	@Override
-	protected void drawFormItem(ElementFactory doc, Element formItem) {
-		Map<String, String> context = new HashMap<>();
+	protected void onBuildContext(Map<String, String> context) {
 		context.put("startTime", majorVarRef());
-		formItem.appendChild(FAUtil.readElement(fragment_file, context, getFieldName()));
+		super.onBuildContext(context);
 	}
 
-	private String getDateName() {
-		return FORM_SUFFIX + getFieldName();
+	@Override
+	protected void drawFormItem(ElementFactory doc, Element formItem) {
+		formItem.appendChild(FAUtil.readElement(fragment_file, context(), getFieldName()));
 	}
 
 	@Override

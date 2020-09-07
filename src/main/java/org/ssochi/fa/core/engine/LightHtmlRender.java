@@ -3,12 +3,19 @@ package org.ssochi.fa.core.engine;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.ssochi.fa.annotations.ViewModel;
+import org.ssochi.fa.annotations.views.FormSubmitButtonView;
+import org.ssochi.fa.annotations.views.ViewProperties;
+import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.FAView;
+import org.ssochi.fa.core.engine.interfaces.FAFieldGenerator;
+import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.html.HtmlItem;
 import org.ssochi.fa.core.engine.interfaces.HtmlRender;
 import org.ssochi.fa.core.engine.interfaces.VueRender;
 import org.ssochi.fa.core.html.FAHtml;
 import org.ssochi.fa.core.vue.Vue;
+import org.ssochi.fa.utils.FAUtil;
 
 import java.util.List;
 
@@ -18,28 +25,46 @@ import static org.ssochi.fa.utils.Constants.LABEL_WIDTH;
 public class LightHtmlRender implements HtmlRender {
 	VueRender vueRender = new LightVueRender();
 
+	@ViewProperties
+	@FormSubmitButtonView
+	private String formSubmitButton;
+
 	@Override
-	public String render(List<FAView> views) {
+	public String render(List<FAView> views, ViewModel viewModel) {
 		FAHtml html = new FAHtml();
 		Document doc = Jsoup.parseBodyFragment("");
 		Vue vue = new Vue();
+		dealViewModel(viewModel, views);
 		for (FAView view : views) {
 			view.drawVue(vue);
 			HtmlItem htmlItem = view.drawHtmlItem(doc);
 			html.appendHtmlItem(htmlItem);
 		}
-		return render(html, vue, doc);
+		return render(html, vue, doc, viewModel);
 	}
 
-	private String render(FAHtml html, Vue vue, Document doc) {
-		drawHead(doc);
-		drawBody(html, doc);
+	private void dealViewModel(ViewModel viewModel, List<FAView> views) {
+		if (!viewModel.submitUrl().isEmpty()) {
+			FAFieldGenerator generator = new LightFAFieldGenerator();
+			try {
+				FAField view = generator.generate(viewModel, this.getClass().getDeclaredField("formSubmitButton"));
+				views.add(FAUtil.buildView(view));
+			} catch (NoSuchFieldException e) {
+				e.printStackTrace();
+				throw new FARunningTimeException("无法生成提交按钮");
+			}
+		}
+	}
+
+	private String render(FAHtml html, Vue vue, Document doc, ViewModel viewModel) {
+		drawHead(doc, viewModel);
+		drawBody(html, doc, viewModel);
 		Element vueEle = drawVue(vue, doc);
 		doc.body().appendChild(vueEle);
 		return doc.toString();
 	}
 
-	private void drawHead(Document doc) {
+	private void drawHead(Document doc, ViewModel viewModel) {
 		Element head = doc.head();
 		Element cssLink = doc.createElement(LINK);
 		cssLink.attr(REL, "stylesheet");
@@ -60,8 +85,9 @@ public class LightHtmlRender implements HtmlRender {
 		meta.attr("content", "text/html");
 		meta.attr("charset", "utf-8");
 		head.appendChild(meta);
-
-
+		Element title = doc.createElement("title");
+		title.text(viewModel.title());
+		head.appendChild(title);
 	}
 
 	private Element drawVue(Vue vue, Document doc) {
@@ -75,12 +101,23 @@ public class LightHtmlRender implements HtmlRender {
 		return vueRender.render(vue);
 	}
 
-	private void drawBody(FAHtml html, Document doc) {
+	private void drawBody(FAHtml html, Document doc, ViewModel viewModel) {
 		Element body = doc.body();
+
 		Element div = doc.createElement(DIV);
 		div.attr(ID, APP);
+
+		Element h2 = doc.createElement("h2");
+		h2.attr("style", "color:#606266;");
+		h2.text(viewModel.title());
+		div.appendChild(h2);
+
+		Element hr = FAUtil.readElement("hr.fragment", null, "");
+		div.appendChild(hr);
+
 		Element form = drawForm(html, doc);
 		div.appendChild(form);
+
 		body.appendChild(div);
 	}
 
@@ -94,6 +131,7 @@ public class LightHtmlRender implements HtmlRender {
 		for (HtmlItem htmlItem : html.getHtmlItems()) {
 			form.appendChild(htmlItem.getHtmlElement());
 		}
+
 		return form;
 	}
 }

@@ -1,5 +1,6 @@
 package org.ssochi.fa.views;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.jsoup.nodes.Document;
@@ -90,6 +91,16 @@ public abstract class FormItemView extends FAView {
 
 	protected void putLocal(Map<String, String> context, String key) {
 		context.put(key, localName(key));
+	}
+
+	protected Map<String,String> context(){
+		Map<String,String> context = new HashMap<>();
+		onBuildContext(context);
+		return context;
+	}
+
+	protected void onBuildContext(Map<String, String> context){
+
 	}
 }
 

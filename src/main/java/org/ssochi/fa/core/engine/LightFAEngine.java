@@ -9,6 +9,7 @@ import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.FAView;
 import org.ssochi.fa.core.engine.interfaces.*;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
+import org.ssochi.fa.utils.FAUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -26,7 +27,7 @@ public class LightFAEngine implements FAEngine {
 		Preconditions.checkNotNull(vm);
 		List<FAView> views = getCachedFields(vm);
 		assignFieldValue(vm, views);
-		return htmlRender.render(views);
+		return htmlRender.render(views,vm.getClass().getAnnotation(ViewModel.class));
 	}
 
 	private void assignFieldValue(Object vm, List<FAView> views) {
@@ -72,19 +73,7 @@ public class LightFAEngine implements FAEngine {
 	}
 
 	private FAView buildView(FAField field) {
-		Annotation viewAnnotation = field.getView();
-		String viewName = viewAnnotation.annotationType().getSimpleName();
-		View vw = viewAnnotation.annotationType().getAnnotation(View.class);
-		if (vw == null) {
-			throw new FARunningTimeException("在注解%s没有找到View注解", viewName);
-		}
-		try {
-			Constructor<? extends FAView> constructor = vw.bind().getConstructor(FAField.class);
-			return constructor.newInstance(field);
-		} catch (Exception e) {
-			e.printStackTrace();
-			throw new FARunningTimeException("构建%s失败", viewName);
-		}
+		return FAUtil.buildView(field);
 	}
 
 	private void sort(List<FAField> fields, String viewModelName) {

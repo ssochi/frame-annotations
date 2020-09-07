@@ -6,7 +6,7 @@
             <el-dropdown  @command="${handleCommandMethod}" split-button type="primary">
                 快速选择
                 <el-dropdown-menu slot="dropdown" >
-                  <el-dropdown-item v-for="ep in ${eps}" v-bind:command="ep.id">{{ ep.name + "-" + ep.id }}</el-dropdown-item>
+                  <el-dropdown-item v-for="ep in ${eps}" v-bind:key="ep.id" v-bind:command="ep.id">{{ ep.name + "-" + ep.id }}</el-dropdown-item>
                 </el-dropdown-menu>
             </el-dropdown>
         </div>

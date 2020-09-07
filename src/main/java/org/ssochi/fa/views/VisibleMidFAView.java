@@ -48,13 +48,12 @@ public class VisibleMidFAView extends FormItemView {
 		return array;
 	}
 
-	private Map<String, String> context() {
-		Map<String, String> cxt = new HashMap<>();
+	@Override
+	protected void onBuildContext(Map<String, String> cxt) {
 		cxt.put(FIELD_MI_IDS, majorVarRef());
 		cxt.put(FIELD_EPS, localName(FIELD_EPS));
 		cxt.put(METHOD_HANDLE_COMMAND, localName(METHOD_HANDLE_COMMAND));
 		cxt.put(METHOD_ADD_ALL_MI_IDS, localName(METHOD_ADD_ALL_MI_IDS));
-		return cxt;
 	}
 
 	@Override

@@ -42,14 +42,13 @@ public class PicUploadFAView extends FormItemView {
 		vue.addFunction(FAUtil.readVueFunction(js_fragment_file,context(),getFieldName()));
 	}
 
-	public Map<String, String> context() {
-		Map<String, String> context = new HashMap<>();
+	@Override
+	protected void onBuildContext(Map<String, String> context) {
 		putLocal(context, handle_preview);
 		putLocal(context, handle_remove);
 		putLocal(context, dialog_image);
 		putLocal(context, dialog_visible);
 		context.put(file_list, majorVarRef());
-		return context;
 	}
 
 	@Override

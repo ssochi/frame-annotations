@@ -8,7 +8,7 @@ import org.ssochi.fa.annotations.ViewModel;
 import org.ssochi.fa.enums.PreConditionAction;
 import org.ssochi.fa.models.PicUploadModelGroup;
 
-@ViewModel(title = "挂件配置")
+@ViewModel(title = "挂件配置",submitUrl = "233")
 @Data
 public class PendentViewModel {
     @ViewProperties(title = "挂件ID")
@@ -33,7 +33,7 @@ public class PendentViewModel {
 
     @ViewProperties(title = "起始时间", prev = "useTimeSelector")
     @TimeSelectorView
-    @PreCondition(previous = "description", condition = " == '233'", action = PreConditionAction.visible)
+    @PreCondition(previous = "useTimeSelector", condition = " == true", action = PreConditionAction.visible)
     private String startTime;
 
     @ViewProperties(title = "结束时间", prev = "startTime")
@@ -44,13 +44,13 @@ public class PendentViewModel {
     @ViewProperties(title = "允许访问的mids", prev = "endTime")
     @VisibleMidView
     private String miIds;
-    @ViewProperties(title = "允许访问的mids", prev = "miIds")
-    @VisibleMidView
-    private String miIds1;
-    @ViewProperties(title = "允许访问的mids", prev = "miIds1")
-    @VisibleMidView
-    private String miIds2;
-    @ViewProperties(title = "允许访问的mids", prev = "miIds2")
-    @VisibleMidView
-    private String miIds3;
+//    @ViewProperties(title = "允许访问的mids", prev = "miIds")
+//    @VisibleMidView
+//    private String miIds1;
+//    @ViewProperties(title = "允许访问的mids", prev = "miIds1")
+//    @VisibleMidView
+//    private String miIds2;
+//    @ViewProperties(title = "允许访问的mids", prev = "miIds2")
+//    @VisibleMidView
+//    private String miIds3;
 }
