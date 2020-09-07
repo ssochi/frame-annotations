@@ -1,8 +1,16 @@
-<el-upload class="upload-demo" action="" :on-preview="${handle_preview}" :on-remove="${handle_remove}" :file-list="${file_list}.group" list-type="picture">
-     <el-button size="small" type="primary" v-if="${file_list}.group.length <= 0">
+<div class="demo-image__preview">
+       <el-image
+         style="width: ${width}px; height: ${height}px"
+         v-for="file in ${file_list}.old"
+         :src="file"
+         :preview-src-list="${file_list}.old">
+       </el-image>
+ </div>
+<el-upload class="upload-demo" action="https://jsonplaceholder.typicode.com/posts/" :on-preview="${handle_preview}" :on-remove="${handle_remove}" :on-change="${handle_change}" :file-list="${file_list}.group" list-type="picture">
+     <el-button size="small" type="primary" v-if="${file_list}.old.length + ${file_list}.upload.length <= ${max_pic_num}">
       点击上传
      </el-button>
-     <div slot="tip" class="el-upload__tip">
+     <div slot="tip" class="el-upload__tip" v-if="${file_list}.old.length + ${file_list}.upload.length <= ${max_pic_num}">
       只能上传jpg/png文件
      </div>
     </el-upload>

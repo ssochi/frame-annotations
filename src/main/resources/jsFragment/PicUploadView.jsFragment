@@ -2,5 +2,13 @@ ${handle_preview}(file) {
     this.${dialog_visible} = true;
     this.${dialog_image} = file.url;
 },${handle_remove}(file, fileList) {
-    this.${file_list}.group = [];
+    this.${file_list}.upload = [];
+    for(let i=0;i < fileList.length;i++){
+        this.${file_list}.upload[i] = fileList[i].url;
+    }
+},${handle_change}(file, fileList) {
+    this.${file_list}.upload = [];
+        for(let i=0;i < fileList.length;i++){
+            this.${file_list}.upload[i] = fileList[i].url;
+    }
 }

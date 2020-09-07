@@ -18,4 +18,6 @@ public @interface PicUploadView {
      * 当 maxPictureCount = -1 可以上传无限张
      */
     int maxPictureCount() default 1;
+    int width() default 200;
+    int height() default 200;
 }

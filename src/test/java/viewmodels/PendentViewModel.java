@@ -24,7 +24,7 @@ public class PendentViewModel {
     private String description;
 
     @ViewProperties(title = "挂件图片", prev = "description")
-    @PicUploadView
+    @PicUploadView(maxPictureCount = 3,width = 300,height = 150)
     private PicUploadModelGroup image;
 
     @ViewProperties(title = "是否设置有效时间", prev = "image")

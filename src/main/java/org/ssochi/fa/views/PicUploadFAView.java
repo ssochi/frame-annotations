@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.jsoup.nodes.Element;
+import org.ssochi.fa.annotations.views.PicUploadView;
 import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
@@ -11,7 +12,6 @@ import org.ssochi.fa.models.PicUploadModelGroup;
 import org.ssochi.fa.utils.ElementFactory;
 import org.ssochi.fa.utils.FAUtil;
 import org.ssochi.fa.utils.GsonUtil;
-import org.jsoup.nodes.Document;
 
 
 import static org.ssochi.fa.utils.Constants.*;
@@ -48,7 +48,12 @@ public class PicUploadFAView extends FormItemView {
 		putLocal(context, handle_remove);
 		putLocal(context, dialog_image);
 		putLocal(context, dialog_visible);
+		putLocal(context, "handle_change");
 		context.put(file_list, majorVarRef());
+		PicUploadView view = (PicUploadView) getView();
+		context.put("max_pic_num", String.valueOf(view.maxPictureCount() - 1));
+		context.put("width", String.valueOf(view.width()));
+		context.put("height", String.valueOf(view.height()));
 	}
 
 	@Override

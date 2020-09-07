@@ -1,6 +1,5 @@
 import org.ssochi.fa.core.engine.LightFAEngine;
 import org.ssochi.fa.core.engine.interfaces.FAEngine;
-import org.ssochi.fa.models.PicUploadModel;
 import org.ssochi.fa.models.PicUploadModelGroup;
 
 import viewmodels.PendentViewModel;
@@ -16,10 +15,7 @@ public class Test {
         vm.setName("我是米粉");
         vm.setUseTimeSelector(true);
         PicUploadModelGroup group = new PicUploadModelGroup();
-        PicUploadModel model = new PicUploadModel();
-        model.setFileName("测试");
-        model.setUrl("https://ts.market.mi-img.com/download/MiVip/04613471bc2acfa20b8b1897fb704f7a4d541473f");
-        group.getGroup().add(model);
+        group.getOld().add("https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100");
         vm.setImage(group);
         String result = engine.generateHtmlContext(vm);
         FileOutputStream osm = new FileOutputStream(new File("auto.html"));

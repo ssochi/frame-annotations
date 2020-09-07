@@ -3,6 +3,7 @@ package org.ssochi.fa.core.engine;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.nodes.Entities;
 import org.ssochi.fa.annotations.ViewModel;
 import org.ssochi.fa.annotations.views.FormSubmitButtonView;
 import org.ssochi.fa.annotations.views.ViewProperties;
@@ -17,6 +18,8 @@ import org.ssochi.fa.core.html.FAHtml;
 import org.ssochi.fa.core.vue.Vue;
 import org.ssochi.fa.utils.FAUtil;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.ssochi.fa.utils.Constants.*;
@@ -40,7 +43,10 @@ public class LightHtmlRender implements HtmlRender {
 			HtmlItem htmlItem = view.drawHtmlItem(doc);
 			html.appendHtmlItem(htmlItem);
 		}
-		return render(html, vue, doc, viewModel);
+		String result = render(html, vue, doc, viewModel);
+		result = result.replace("&lt;","<");
+		result = result.replace("&gt;",">");
+		return result;
 	}
 
 	private void dealViewModel(ViewModel viewModel, List<FAView> views) {
@@ -61,7 +67,7 @@ public class LightHtmlRender implements HtmlRender {
 		drawBody(html, doc, viewModel);
 		Element vueEle = drawVue(vue, doc);
 		doc.body().appendChild(vueEle);
-		return doc.toString();
+		return doc.html();
 	}
 
 	private void drawHead(Document doc, ViewModel viewModel) {
