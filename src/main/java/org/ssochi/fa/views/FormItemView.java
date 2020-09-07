@@ -10,6 +10,7 @@ import org.ssochi.fa.core.FAView;
 import org.ssochi.fa.core.html.HtmlItem;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
+import org.ssochi.fa.utils.ElementFactory;
 import org.ssochi.fa.utils.TypeUtil;
 
 import static org.ssochi.fa.utils.Constants.*;
@@ -18,74 +19,77 @@ import static org.ssochi.fa.utils.Constants.*;
  * 以FormItem为父节点的View
  */
 public abstract class FormItemView extends FAView {
-    public FormItemView(FAField field) {
-        super(field);
-    }
+	public FormItemView(FAField field) {
+		super(field);
+	}
 
-    @Override
-    final public HtmlItem drawHtmlItem(Document doc) {
-        Element formItem = doc.createElement(EL_FORM_ITEM);
-        formItem.attr(LABEL,getViewProperties().title());
-        if(getViewProperties().visible()){
-            formItem.attr(V_IF,TRUE);
-        }
+	@Override
+	final public HtmlItem drawHtmlItem(Document doc) {
+		Element formItem = doc.createElement(EL_FORM_ITEM);
+		formItem.attr(LABEL, getViewProperties().title());
+		if (getViewProperties().visible()) {
+			formItem.attr(V_IF, TRUE);
+		}
 
-        renderPreCondition(formItem);
+		renderPreCondition(formItem);
 
-        drawFormItem(doc,formItem);
-        return new HtmlItem(formItem);
-    }
+		drawFormItem(new ElementFactory(doc), formItem);
+		return new HtmlItem(formItem);
+	}
 
-    private void renderPreCondition(Element formItem){
-        PreCondition preCondition = getPreCondition();
-        if (preCondition == null)
-            return;
-        String attr = preCondition.action().attr();
-        formItem.attr(attr,FORM_SUFFIX + preCondition.previous() + preCondition.condition());
-    }
+	private void renderPreCondition(Element formItem) {
+		PreCondition preCondition = getPreCondition();
+		if (preCondition == null)
+			return;
+		String attr = preCondition.action().attr();
+		formItem.attr(attr, FORM_SUFFIX + preCondition.previous() + preCondition.condition());
+	}
 
-    @Override
-    final public void drawVue(DrawableVue vue) {
-        drawViewVue(vue);
-    }
+	@Override
+	final public void drawVue(DrawableVue vue) {
+		drawViewVue(vue);
+	}
 
-    protected abstract void drawViewVue(DrawableVue vue);
+	protected abstract void drawViewVue(DrawableVue vue);
 
-    protected abstract void drawFormItem(Document doc, Element formItem);
+	protected abstract void drawFormItem(ElementFactory creator, Element formItem);
 
-    protected boolean isValidType(Class<?> ... classes){
-        for (Class<?> aClass : classes) {
-            if (aClass.isAssignableFrom(TypeUtil.getWarpClass(getFieldType()))){
-                return true;
-            }
-        }
-        return false;
-    }
-    protected FARunningTimeException inValidTypeException(){
-        return new FARunningTimeException("%s 不支持 类型 %s",this.getClass().getSimpleName(),getFieldType().getSimpleName());
-    }
+	protected boolean isValidType(Class<?>... classes) {
+		for (Class<?> aClass : classes) {
+			if (aClass.isAssignableFrom(TypeUtil.getWarpClass(getFieldType()))) {
+				return true;
+			}
+		}
+		return false;
+	}
 
-    /**
-     * 对于定义在data中的一般变量 使用这个方法生产名字
-     */
-    protected String localName(String name){
-        return getFieldName() + "_" + name;
-    }
-    /**
-     * 对于主属性使用这个方法生产名字
-     */
-    protected String majorVarRef(){
-        return FORM_SUFFIX + getFieldName();
-    }
+	protected FARunningTimeException inValidTypeException() {
+		return new FARunningTimeException("%s 不支持 类型 %s", this.getClass().getSimpleName(), getFieldType().getSimpleName());
+	}
 
-    /**
-     * @return 主属性名称
-     */
-    protected String majorVarName(){
-        return getFieldName();
-    }
+	/**
+	 * 对于定义在data中的一般变量 使用这个方法生产名字
+	 */
+	protected String localName(String name) {
+		return getFieldName() + "_" + name;
+	}
 
-    protected void putLocal(Map<String,String> context,String key){
-        context.put(key,localName(key));
-    }
+	/**
+	 * 对于主属性使用这个方法生产名字
+	 */
+	protected String majorVarRef() {
+		return FORM_SUFFIX + getFieldName();
+	}
+
+	/**
+	 * @return 主属性名称
+	 */
+	protected String majorVarName() {
+		return getFieldName();
+	}
+
+	protected void putLocal(Map<String, String> context, String key) {
+		context.put(key, localName(key));
+	}
 }
+

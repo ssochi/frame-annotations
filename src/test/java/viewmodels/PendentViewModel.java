@@ -27,30 +27,30 @@ public class PendentViewModel {
     @PicUploadView
     private PicUploadModelGroup image;
 
-//    @ViewProperties(title = "是否设置有效时间", prev = "image")
-//    @SwitchView
-//    private boolean useTimeSelector;
-//
-//    @ViewProperties(title = "起始时间", prev = "useTimeSelector")
-//    @TimeSelectorView
-//    @PreCondition(previous = "description", condition = " == '233'", action = PreConditionAction.visible)
-//    private String startTime;
-//
-//    @ViewProperties(title = "结束时间", prev = "startTime")
-//    @TimeSelectorView
-//    @PreCondition(previous = "useTimeSelector", condition = " == true", action = PreConditionAction.visible)
-//    private String endTime;
-//
-//    @ViewProperties(title = "允许访问的mids", prev = "endTime")
-//    @VisibleMidView
-//    private String miIds;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds")
-//    @VisibleMidView
-//    private String miIds1;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds1")
-//    @VisibleMidView
-//    private String miIds2;
-//    @ViewProperties(title = "允许访问的mids", prev = "miIds2")
-//    @VisibleMidView
-//    private String miIds3;
+    @ViewProperties(title = "是否设置有效时间", prev = "image")
+    @SwitchView
+    private boolean useTimeSelector;
+
+    @ViewProperties(title = "起始时间", prev = "useTimeSelector")
+    @TimeSelectorView
+    @PreCondition(previous = "description", condition = " == '233'", action = PreConditionAction.visible)
+    private String startTime;
+
+    @ViewProperties(title = "结束时间", prev = "startTime")
+    @TimeSelectorView
+    @PreCondition(previous = "useTimeSelector", condition = " == true", action = PreConditionAction.visible)
+    private String endTime;
+
+    @ViewProperties(title = "允许访问的mids", prev = "endTime")
+    @VisibleMidView
+    private String miIds;
+    @ViewProperties(title = "允许访问的mids", prev = "miIds")
+    @VisibleMidView
+    private String miIds1;
+    @ViewProperties(title = "允许访问的mids", prev = "miIds1")
+    @VisibleMidView
+    private String miIds2;
+    @ViewProperties(title = "允许访问的mids", prev = "miIds2")
+    @VisibleMidView
+    private String miIds3;
 }

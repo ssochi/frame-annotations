@@ -1,35 +1,33 @@
 package org.ssochi.fa.views;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.jsoup.nodes.Element;
 import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
 import org.jsoup.nodes.Document;
+import org.ssochi.fa.utils.ElementFactory;
+import org.ssochi.fa.utils.FAUtil;
 
 import static org.ssochi.fa.utils.Constants.*;
 
 public class TimeSelectorFAView extends FormItemView {
+    public static final String fragment_file = "TimeSelectorView.fragment";
     public TimeSelectorFAView(FAField field) {
         super(field);
     }
     @Override
     protected void drawViewVue(DrawableVue vue) {
         String val = fieldValue == null ? "" : (String) fieldValue;
-        vue.addForm(getFieldName(),val);
+        vue.addForm(majorVarName(),val);
     }
 
     @Override
-    protected void drawFormItem(Document doc, Element formItem) {
-        Element div = doc.createElement(DIV);
-        div.attr(CLASS,"block");
-
-        Element picker = doc.createElement("el-date-picker");
-        picker.attr(V_MODEL,getDateName());
-        picker.attr(TYPE,"datetime");
-        picker.attr("placeholder","选择日期时间");
-        picker.attr("value-format","timestamp");
-
-        div.appendChild(picker);
-        formItem.appendChild(picker);
+    protected void drawFormItem(ElementFactory doc, Element formItem) {
+        Map<String,String> context = new HashMap<>();
+        context.put("startTime",majorVarRef());
+        formItem.appendChild(FAUtil.readElement(fragment_file,context,getFieldName()));
     }
 
     private String getDateName() {

@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class FileUtil {
+public class FAUtil {
 	public static final String HTML_FRAGMENT_PATH = "src/main/resources/htmlFragment/";
 	public static final String HTML_JS_FRAGMENT_PATH = "src/main/resources/jsFragment/";
 	private static final Map<String, Element> fragmentCache = new ConcurrentHashMap<>();

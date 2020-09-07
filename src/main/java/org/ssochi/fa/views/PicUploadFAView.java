@@ -8,7 +8,8 @@ import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
 import org.ssochi.fa.models.PicUploadModelGroup;
-import org.ssochi.fa.utils.FileUtil;
+import org.ssochi.fa.utils.ElementFactory;
+import org.ssochi.fa.utils.FAUtil;
 import org.ssochi.fa.utils.GsonUtil;
 import org.jsoup.nodes.Document;
 
@@ -38,7 +39,7 @@ public class PicUploadFAView extends FormItemView {
 		vue.add(localName(dialog_visible), false);
 		vue.add(localName(dialog_image), EMPTY_STRING);
 
-		vue.addFunction(FileUtil.readVueFunction(js_fragment_file,context(),getFieldName()));
+		vue.addFunction(FAUtil.readVueFunction(js_fragment_file,context(),getFieldName()));
 	}
 
 	public Map<String, String> context() {
@@ -52,8 +53,8 @@ public class PicUploadFAView extends FormItemView {
 	}
 
 	@Override
-	protected void drawFormItem(Document doc, Element formItem) {
-		formItem.appendChild(FileUtil.readElement(fragment_file, context(), getFieldName()));
+	protected void drawFormItem(ElementFactory doc, Element formItem) {
+		formItem.appendChild(FAUtil.readElement(fragment_file, context(), getFieldName()));
 	}
 
 	@Override

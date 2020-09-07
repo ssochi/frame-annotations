@@ -4,6 +4,7 @@ import org.jsoup.nodes.Element;
 import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.exceptions.FARunningTimeException;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
+import org.ssochi.fa.utils.ElementFactory;
 import org.ssochi.fa.utils.TypeUtil;
 import org.jsoup.nodes.Document;
 
@@ -26,8 +27,8 @@ public class SwitchFAView extends FormItemView {
     }
 
     @Override
-    protected void drawFormItem(Document doc, Element formItem) {
-        Element eSwitch = doc.createElement("el-switch");
+    protected void drawFormItem(ElementFactory doc, Element formItem) {
+        Element eSwitch = doc.create("el-switch");
         eSwitch.attr(V_MODEL, switchActive());
         eSwitch.attr("active-color","#13ce66");
         eSwitch.attr("inactive-color","#ff4949");

@@ -6,7 +6,8 @@ import com.google.gson.JsonObject;
 import org.jsoup.nodes.Element;
 import org.ssochi.fa.core.FAField;
 import org.ssochi.fa.core.engine.interfaces.DrawableVue;
-import org.ssochi.fa.utils.FileUtil;
+import org.ssochi.fa.utils.ElementFactory;
+import org.ssochi.fa.utils.FAUtil;
 import org.jsoup.nodes.Document;
 import org.ssochi.fa.utils.TypeUtil;
 
@@ -30,7 +31,7 @@ public class VisibleMidFAView extends FormItemView {
 	protected void drawViewVue(DrawableVue vue) {
 		vue.addForm(getFieldName(), TypeUtil.getOrDefault(String.class, fieldValue, ""));
 		vue.add(localName(FIELD_EPS), getEps());
-		vue.addFunction(FileUtil.readVueFunction(FILE_JS_FRAGMENT, context(), getFieldName(), false));
+		vue.addFunction(FAUtil.readVueFunction(FILE_JS_FRAGMENT, context(), getFieldName(), false));
 	}
 
 
@@ -57,8 +58,8 @@ public class VisibleMidFAView extends FormItemView {
 	}
 
 	@Override
-	protected void drawFormItem(Document doc, Element formItem) {
-		formItem.appendChild(FileUtil.readElement(FILE_FRAGMENT, context(), getFieldName()));
+	protected void drawFormItem(ElementFactory creator, Element formItem) {
+		formItem.appendChild(FAUtil.readElement(FILE_FRAGMENT, context(), getFieldName()));
 	}
 
 	@Override
